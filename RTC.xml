@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<rtc:RtcProfile rtc:version="0.2" rtc:id="RTC:AIST:Category:WiimoteRTC:1.0.0" xmlns:rtcExt="http://www.openrtp.org/namespaces/rtc_ext" xmlns:rtcDoc="http://www.openrtp.org/namespaces/rtc_doc" xmlns:rtc="http://www.openrtp.org/namespaces/rtc" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <rtc:BasicInfo xsi:type="rtcExt:basic_info_ext" rtcExt:saveProject="WiimoteRTC" rtc:updateDate="2013-04-16T15:50:08+09:00" rtc:creationDate="2013-04-16T15:50:08+09:00" rtc:version="1.0.0" rtc:vendor="AIST" rtc:maxInstances="1" rtc:executionType="PeriodicExecutionContext" rtc:executionRate="1000.0" rtc:description="Controll Component for wiiremote " rtc:category="Category" rtc:componentKind="DataFlowComponent" rtc:activityType="PERIODIC" rtc:componentType="STATIC" rtc:name="WiimoteRTC">
+        <rtcExt:VersionUpLogs></rtcExt:VersionUpLogs>
+    </rtc:BasicInfo>
+    <rtc:Actions>
+        <rtc:OnInitialize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="Configurationの初期化を行い、PCとBluetooth接続したwiimoteデバイスと接続する。"/>
+        </rtc:OnInitialize>
+        <rtc:OnFinalize xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="wiimoteデバイスの接続を切断する。"/>
+        </rtc:OnFinalize>
+        <rtc:OnStartup xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnShutdown xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnActivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnDeactivated xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAborting xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnError xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnReset xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnExecute xsi:type="rtcDoc:action_status_doc" rtc:implemented="true">
+            <rtcDoc:Doc rtcDoc:postCondition="" rtcDoc:preCondition="" rtcDoc:description="インポートにTimedOctet型データがある場合、wiimoteデバイスのLEDと振動をコントロールする。&lt;br/&gt;（LEDと振動のコントロールはコンフィギュレーションから操作も可能）&lt;br/&gt;&lt;br/&gt;コンフィギュレーションで指定し接続したwiimoteデバイスのデータを取得・変換し、&lt;br/&gt;各デバイスのアウトポートからTimedShortSeq型で送信する。"/>
+        </rtc:OnExecute>
+        <rtc:OnStateUpdate xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnRateChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnAction xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+        <rtc:OnModeChanged xsi:type="rtcDoc:action_status_doc" rtc:implemented="false"/>
+    </rtc:Actions>
+    <rtc:ConfigurationSet>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="debug">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="コンソール画面に整形データを表示するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="debug"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="SIU_compati">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="芝浦工大学が開発したWiiRemoteComponentsに互換性のあるデータを送信するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="SIU_compati"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="ClassicController">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="wiiClassicControllerの情報を取得・送信するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="ClassicController"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="Nunchuk">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="wiiNunchukの情報を取得・送信するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="Nunchuk"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="MotionPlus">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="wiiMotionPlusの情報を取得・送信するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="MotionPlus"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="BalanceBoard">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="wiiBalanceBoardの情報を取得・送信するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="BalanceBoard"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="&quot;&quot;" rtc:type="string" rtc:name="LED">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>2</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>3</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="wiiRemoteリモコンのLEDの点灯を設定するConfiguration。" rtcDoc:defaultValue="NULL" rtcDoc:dataname="LED"/>
+            <rtcExt:Properties rtcExt:value="checkbox" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+        <rtc:Configuration xsi:type="rtcExt:configuration_ext" rtcExt:variableName="" rtc:unit="" rtc:defaultValue="0" rtc:type="bool" rtc:name="Rumble">
+            <rtc:Constraint>
+                <rtc:ConstraintUnitType>
+                    <rtc:Or>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>0</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                        <rtc:Constraint>
+                            <rtc:ConstraintUnitType>
+                                <rtc:propertyIsEqualTo rtc:matchCase="false">
+                                    <rtc:Literal>1</rtc:Literal>
+                                </rtc:propertyIsEqualTo>
+                            </rtc:ConstraintUnitType>
+                        </rtc:Constraint>
+                    </rtc:Or>
+                </rtc:ConstraintUnitType>
+            </rtc:Constraint>
+            <rtcDoc:Doc rtcDoc:constraint="" rtcDoc:range="" rtcDoc:unit="" rtcDoc:description="wiiRemoteリモコンの振動を設定するConfiguration。" rtcDoc:defaultValue="0" rtcDoc:dataname="Rumble"/>
+            <rtcExt:Properties rtcExt:value="radio" rtcExt:name="__widget__"/>
+        </rtc:Configuration>
+    </rtc:ConfigurationSet>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="LEFT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedOctet" rtc:name="command" rtc:portType="DataInPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="" rtcDoc:type="TimedOctet" rtcDoc:description="WiiコントローラのLEDと振動を制御するコマンドデータを受信する。&lt;br/&gt;上位4ビットでLEDの点灯パターン、最下位1ビットで振動を操作する。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShortSeq" rtc:name="WiiRemote" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="18(※&quot;SIU_compti&quot;が&quot;true&quot;の場合、14)" rtcDoc:type="TimedShortSeq" rtcDoc:description="WiiRemoteコントローラから取得したデータを送信する。&lt;br/&gt;&lt;br/&gt;[0] 十字キー・上ボタンの状態(BOOL 値)&lt;br/&gt;[1] 十字キー・右ボタンの状態(BOOL 値)&lt;br/&gt;[2] 十字キー・下ボタンの状態(BOOL 値)&lt;br/&gt;[3] 十字キー・左ボタンの状態(BOOL 値)&lt;br/&gt;[4] A ボタンの状態(BOOL 値)&lt;br/&gt;[5] B ボタンの状態(BOOL 値)&lt;br/&gt;[6] ＋ボタンの状態(BOOL 値)&lt;br/&gt;[7] Home ボタンの状態(BOOL 値)&lt;br/&gt;[8] －ボタンの状態(BOOL 値)&lt;br/&gt;[9] 1 ボタンの状態(BOOL 値)&lt;br/&gt;[10] 2 ボタンの状態(BOOL 値)&lt;br/&gt;[11] X軸方向の加速度&lt;br/&gt;[12] Y軸方向の加速度&lt;br/&gt;[13] Z軸方向の加速度&lt;br/&gt;[14] pitchのデータ&lt;br/&gt;[15] rollのデータ&lt;br/&gt;[16] バッテリー残量(%) &lt;br/&gt;[17] LEDの状態（BYTE値）&lt;br/&gt;&lt;br/&gt;※コンフィギュレーションの&quot;SIU_compti&quot;が”true&quot;の場合、[0]~[13]のデータを送信する。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShortSeq" rtc:name="WiiNunchuk" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="23(※&quot;SIU_compti&quot;が&quot;true&quot;の場合、21)" rtcDoc:type="TimeShortSeq" rtcDoc:description="WiiNunchukコントローラから取得したデータを送信する。&lt;br/&gt;尚、[0]から[13]までがWiiリモコン本体の情報、それ以降はWiiNunchukの情報となっている。&lt;br/&gt;&lt;br/&gt;[0] 十字キー・上ボタンの状態(BOOL 値)&lt;br/&gt;[1] 十字キー・右ボタンの状態(BOOL 値)&lt;br/&gt;[2] 十字キー・下ボタンの状態(BOOL 値)&lt;br/&gt;[3] 十字キー・左ボタンの状態(BOOL 値)&lt;br/&gt;[4] A ボタンの状態(BOOL 値)&lt;br/&gt;[5] B ボタンの状態(BOOL 値)&lt;br/&gt;[6] ＋ボタンの状態(BOOL 値)&lt;br/&gt;[7] Home ボタンの状態(BOOL 値)&lt;br/&gt;[8] －ボタンの状態(BOOL 値)&lt;br/&gt;[9] 1 ボタンの状態(BOOL 値)&lt;br/&gt;[10] 2 ボタンの状態(BOOL 値)&lt;br/&gt;[11] X軸方向の加速度&lt;br/&gt;[12] Y軸方向の加速度&lt;br/&gt;[13] Z軸方向の加速度&lt;br/&gt;[14] C ボタンの状態(BOOL 値)&lt;br/&gt;[15] Z ボタンの状態(BOOL 値)&lt;br/&gt;[16] アナログスティックのX 方向入力値&lt;br/&gt;(解放時0，最大まで左に傾けると-100，同右で100)&lt;br/&gt;[17] アナログスティックのY 方向入力値&lt;br/&gt;(解放時0，最大まで左に傾けると-100，同右で100)&lt;br/&gt;[18] X軸方向の加速度&lt;br/&gt;[19] Y軸方向の加速度&lt;br/&gt;[20] Z軸方向の加速度&lt;br/&gt;[21] バッテリー残量(%) &lt;br/&gt;[22] LEDの状態（BYTE値）&lt;br/&gt;&lt;br/&gt;※コンフィギュレーションの&quot;SIU_compti&quot;が&quot;true&quot;の場合、[0]~[21]のデータを送信する。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShortSeq" rtc:name="WiiClassicC" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="35(※&quot;SIU_compti&quot;が&quot;true&quot;の場合、37)" rtcDoc:type="TimedShortSeq" rtcDoc:description="WiiClassic Controllerから取得したデータを送信する。&lt;br/&gt;尚、[0]から[13]までがWiiリモコン本体の情報、それ以降はWiiClassicControllerの情報となっている。&lt;br/&gt;&lt;br/&gt;[0] 十字キー・上ボタンの状態(BOOL 値)&lt;br/&gt;[1] 十字キー・右ボタンの状態(BOOL 値)&lt;br/&gt;[2] 十字キー・下ボタンの状態(BOOL 値)&lt;br/&gt;[3] 十字キー・左ボタンの状態(BOOL 値)&lt;br/&gt;[4] A ボタンの状態(BOOL 値)&lt;br/&gt;[5] B ボタンの状態(BOOL 値)&lt;br/&gt;[6] ＋ボタンの状態(BOOL 値)&lt;br/&gt;[7] Home ボタンの状態(BOOL 値)&lt;br/&gt;[8] －ボタンの状態(BOOL 値)&lt;br/&gt;[9] 1 ボタンの状態(BOOL 値)&lt;br/&gt;[10] 2 ボタンの状態(BOOL 値)&lt;br/&gt;[11] X軸方向の加速度&lt;br/&gt;[12] Y軸方向の加速度&lt;br/&gt;[13] Z軸方向の加速度&lt;br/&gt;[14] A ボタンの状態(BOOL 値)&lt;br/&gt;[15] B ボタンの状態(BOOL 値)&lt;br/&gt;[16] X ボタンの状態(BOOL 値)&lt;br/&gt;[17] Y ボタンの状態(BOOL 値)&lt;br/&gt;[18] －ボタンの状態(BOOL 値)&lt;br/&gt;[19] Home ボタンの状態(BOOL 値)&lt;br/&gt;[20] ＋ボタンの状態(BOOL 値)&lt;br/&gt;[21] 十字キー・上ボタンの状態(BOOL 値)&lt;br/&gt;[22] 十字キー・下ボタンの状態(BOOL 値)&lt;br/&gt;[23] 十字キー・左ボタンの状態(BOOL 値)&lt;br/&gt;[24] 十字キー・右ボタンの状態(BOOL 値)&lt;br/&gt;[25] L ボタンの状態(BOOL 値)&lt;br/&gt;[26] R ボタンの状態(BOOL 値)&lt;br/&gt;[27] ZL ボタンの状態(BOOL 値)&lt;br/&gt;[28] ZR ボタンの状態(BOOL 値)&lt;br/&gt;[29] L ボタンのアナログ入力値&lt;br/&gt;　(最小値0，最大値100，PRO の場合は解放で0，押下で100)&lt;br/&gt;[30] R ボタンのアナログ入力値&lt;br/&gt;　(最小値0，最大値100，PRO の場合は解放で0，押下で100)&lt;br/&gt;[31] 左アナログスティックのX 方向入力値&lt;br/&gt;　(解放時0，最大まで左に傾けると-100，同右で100)&lt;br/&gt;[32] 左アナログスティックのY 方向入力値&lt;br/&gt;　(解放時0，最大まで下に傾けると-100，同上で100)&lt;br/&gt;[33] 右アナログスティックのX 方向入力値(-100～100)&lt;br/&gt;　(解放時0，最大まで左に傾けると-100，同右で100)&lt;br/&gt;[34] 右アナログスティックのY 方向入力値(-100～100)&lt;br/&gt;　(解放時0，最大まで下に傾けると-100，同上で100)&lt;br/&gt;[35] バッテリー残量(%) &lt;br/&gt;[36] LEDの状態（BYTE値）&lt;br/&gt;&lt;br/&gt;※コンフィギュレーションの&quot;SIU_compti&quot;が&quot;true&quot;の場合、[0]~[36]のデータを送信する。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShortSeq" rtc:name="WiiBalanceB" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="13(※SIU_comptiがtrueの場合、11)" rtcDoc:type="TimedShortSeq" rtcDoc:description="WiiBalanceBoardから取得したデータを送信する。&lt;br/&gt;&lt;br/&gt;[0] 電源ボタンの状態(BOOL 値)&lt;br/&gt;[1] X軸の重心座標&lt;br/&gt;[2] Y軸の重心座標&lt;br/&gt;[3] 左上にかかる重量データ&lt;br/&gt;[4] 右上にかかる重量データ&lt;br/&gt;[5] 右下にかかる重量データ&lt;br/&gt;[6] 左下にかかる重量データ&lt;br/&gt;[7] 左上センサの生データ&lt;br/&gt;[8] 右上センサの生データ&lt;br/&gt;[9] 右下センサの生データ&lt;br/&gt;[10] 左下センサの生データ&lt;br/&gt;[11] バッテリー残量(%) &lt;br/&gt;[12] LEDの状態（BYTE値）&lt;br/&gt;&lt;br/&gt;※コンフィギュレーションの&quot;SIU_compti&quot;が&quot;true&quot;の場合、[0]~[12]のデータを送信する。"/>
+    </rtc:DataPorts>
+    <rtc:DataPorts xsi:type="rtcExt:dataport_ext" rtcExt:position="RIGHT" rtcExt:variableName="" rtc:unit="" rtc:subscriptionType="" rtc:dataflowType="" rtc:interfaceType="" rtc:idlFile="" rtc:type="RTC::TimedShortSeq" rtc:name="WiiMotionP" rtc:portType="DataOutPort">
+        <rtcDoc:Doc rtcDoc:operation="" rtcDoc:occerrence="" rtcDoc:unit="" rtcDoc:semantics="" rtcDoc:number="22(※SIU_comptiがtrueの場合、19)" rtcDoc:type="TimedShortSeq" rtcDoc:description="WiiMotionPlusコントローラから取得したデータを送信する。&lt;br/&gt;尚、[0]から[13]までがWiiリモコン本体の情報、それ以降はWiiMotionPlusの情報となっている。&lt;br/&gt;&lt;br/&gt;[0] 十字キー・上ボタンの状態(BOOL 値)&lt;br/&gt;[1] 十字キー・右ボタンの状態(BOOL 値)&lt;br/&gt;[2] 十字キー・下ボタンの状態(BOOL 値)&lt;br/&gt;[3] 十字キー・左ボタンの状態(BOOL 値)&lt;br/&gt;[4] A ボタンの状態(BOOL 値)&lt;br/&gt;[5] B ボタンの状態(BOOL 値)&lt;br/&gt;[6] ＋ボタンの状態(BOOL 値)&lt;br/&gt;[7] Home ボタンの状態(BOOL 値)&lt;br/&gt;[8] －ボタンの状態(BOOL 値)&lt;br/&gt;[9] 1 ボタンの状態(BOOL 値)&lt;br/&gt;[10] 2 ボタンの状態(BOOL 値)&lt;br/&gt;[11] X軸方向の加速度&lt;br/&gt;[12] Y軸方向の加速度&lt;br/&gt;[13] Z軸方向の加速度&lt;br/&gt;[14] MotionPlus のyaw の生データ&lt;br/&gt;[15] MotionPlus のpitch の生データ&lt;br/&gt;[16] MotionPlus のroll の生データ&lt;br/&gt;[17] MotionPlus のyaw を速度に変換した値&lt;br/&gt;[18] MotionPlus のpitch を速度に変換した値&lt;br/&gt;[19] MotionPlus のroll を速度に変換した値&lt;br/&gt;[20] バッテリー残量(%) &lt;br/&gt;[21] LEDの状態&lt;br/&gt;&lt;br/&gt;※コンフィギュレーションの&quot;SIU_compti&quot;が&quot;true&quot;の場合、[0]~[19]のデータを送信する。"/>
+    </rtc:DataPorts>
+    <rtc:Language xsi:type="rtcExt:language_ext" rtc:kind="C++"/>
+</rtc:RtcProfile>

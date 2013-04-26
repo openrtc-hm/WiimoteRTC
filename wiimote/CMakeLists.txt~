@@ -1,0 +1,11 @@
+cmake_minimum_required(VERSION 2.8)
+
+set(comp_srcs ./src/wiimote.cpp )
+set(WDK_DIR "C:\\WinDDK\\7600.16385.1\\inc\\api")
+#set(VC2010_DIR "C:\\Program Files (x86)\\Microsoft Visual Studio 10.0\\VC\\include")
+set(VC2010_LIB_DIR "C:\\Program Files (x86)\\Microsoft Visual Studio 10.0\\VC\\lib")
+
+
+add_library(wiimote STATIC ${comp_srcs})
+link_directories(${VC2010_LIB_DIR})
+include_directories("./src/" ${WDK_DIR} ${VC2010_DIR})

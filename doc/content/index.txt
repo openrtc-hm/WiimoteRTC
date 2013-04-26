@@ -1,0 +1,153 @@
+WiimoteRTCName - English
+========================
+
+.. toctree::
+   :hidden:
+
+   index_j
+
+
+Introduction
+============
+
+
+For a full list of classes and functions, see the `API documentation`_.
+
+.. _`API Documentation`:
+   doxygen/html/index.html
+
+Requirements
+============
+
+WiimoteRTC uses the `CMake build system`. You will need at least version
+2.8 to be able to build the component.
+
+.. _`CMAke build system`:
+   http://www.cmake.org
+
+
+Installation
+============
+
+Binary
+------
+
+Users of Windows can install the component using the binary installer. This
+will install the component and all its necessary dependencies. It is the
+recommended method of installation in Windows.
+
+- Download the installer from the website.
+- Double-click the executable file to begin installation.
+- Follow the instructions to install the component.
+- You may need to restart your computer for environment variable changes
+  to take effect before using the component.
+
+The component can be launched by double-clicking the
+``WiimoteRTCComp`` executable. The ``WiimoteRTC`` library
+is available for loading into a manager, using the initialisation function
+``WiimoteRTCInit``.
+
+From source
+-----------
+
+Follow these steps to install WiimoteRTC from source in any operating
+system:
+
+- Download the source, either from the repository or a source archive,
+  and extract it somewhere::
+
+    tar -xvzf WiimoteRTC-1.0.0.tar.gz
+
+- Change to the directory containing the extracted source::
+
+    cd WiimoteRTC-1.0.0
+
+- Create a directory called ``build``::
+
+    mkdir build
+
+- Change to that directory::
+
+    cd build
+
+- Run cmake or cmake-gui::
+
+    cmake ../
+
+- If no errors occurred, run make::
+
+    make
+
+- Finally, install the component. Ensure the necessary permissions to
+  install into the chosen prefix are available::
+
+    make install
+
+- The install destination can be changed by executing ccmake and changing
+  the variable ``CMAKE_INSTALL_PREFIX``::
+
+    ccmake ../
+
+The component is now ready for use. See the next section for instructions on
+configuring the component.
+
+WiimoteRTC can be launched in stand-alone mode by executing the
+``WiimoteRTCComp`` executable (installed into ``${prefix}/components/bin``).
+Alternatively, ``libWiimoteRTC.so`` can be loaded into a manager, using the
+initialisation function ``WiimoteRTCInit``. This shared object can be found in
+``${prefix}/components/lib`` or ``${prefix}/components/lib64``.
+
+
+Configuration
+=============
+
+The available configuration parameters are described below:
+
+================ ================== ================ ======
+Parameter        Data type          Default Value    Effect
+================ ================== ================ ======
+debug            bool               0                コンソール画面に整形データを表示するConfiguration。
+SIU_compati      bool               0                芝浦工大学が開発したWiiRemoteComponentsに互換性のあるデータを送信するConfiguration。
+ClassicController bool               0                wiiClassicControllerの情報を取得・送信するConfiguration。
+Nunchuk          bool               0                wiiNunchukの情報を取得・送信するConfiguration。
+MotionPlus       bool               0                wiiMotionPlusの情報を取得・送信するConfiguration。
+BalanceBoard     bool               0                wiiBalanceBoardの情報を取得・送信するConfiguration。
+LED              string             ""               wiiRemoteリモコンのLEDの点灯を設定するConfiguration。
+Rumble           bool               0                wiiRemoteリモコンの振動を設定するConfiguration。
+================ ================== ================ ======
+
+Ports
+=====
+
+The ports provided by the component are described below:
+
+=============== =========== ============================== =======
+Name            Type        Data type                      Purpose
+=============== =========== ============================== =======
+command         InPort      RTC::TimedOctet                WiiコントローラのLEDと振動を制御するコマンドデータを受信する。<br/>上位4ビットでLEDの点灯パターン、最下位1ビットで振動を操作する。
+WiiRemote       OutPort     RTC::TimedShortSeq             WiiRemoteコントローラから取得したデータを送信する。<br/><br/>[0] 十字キー・上ボタンの状態(BOOL 値)<br/>[1] 十字キー・右ボタンの状態(BOOL 値)<br/>[2] 十字キー・下ボタンの状態(BOOL 値)<br/>[3] 十字キー・左ボタンの状態(BOOL 値)<br/>[4] A ボタンの状態(BOOL 値)<br/>[5] B ボタンの状態(BOOL 値)<br/>[6] ＋ボタンの状態(BOOL 値)<br/>[7] Home ボタンの状態(BOOL 値)<br/>[8] －ボタンの状態(BOOL 値)<br/>[9] 1 ボタンの状態(BOOL 値)<br/>[10] 2 ボタンの状態(BOOL 値)<br/>[11] X軸方向の加速度<br/>[12] Y軸方向の加速度<br/>[13] Z軸方向の加速度<br/>[14] pitchのデータ<br/>[15] rollのデータ<br/>[16] バッテリー残量(%) <br/>[17] LEDの状態（BYTE値）<br/><br/>※コンフィギュレーションの"SIU_compti"が”true"の場合、[0]~[13]のデータを送信する。
+WiiNunchuk      OutPort     RTC::TimedShortSeq             WiiNunchukコントローラから取得したデータを送信する。<br/>尚、[0]から[13]までがWiiリモコン本体の情報、それ以降はWiiNunchukの情報となっている。<br/><br/>[0] 十字キー・上ボタンの状態(BOOL 値)<br/>[1] 十字キー・右ボタンの状態(BOOL 値)<br/>[2] 十字キー・下ボタンの状態(BOOL 値)<br/>[3] 十字キー・左ボタンの状態(BOOL 値)<br/>[4] A ボタンの状態(BOOL 値)<br/>[5] B ボタンの状態(BOOL 値)<br/>[6] ＋ボタンの状態(BOOL 値)<br/>[7] Home ボタンの状態(BOOL 値)<br/>[8] －ボタンの状態(BOOL 値)<br/>[9] 1 ボタンの状態(BOOL 値)<br/>[10] 2 ボタンの状態(BOOL 値)<br/>[11] X軸方向の加速度<br/>[12] Y軸方向の加速度<br/>[13] Z軸方向の加速度<br/>[14] C ボタンの状態(BOOL 値)<br/>[15] Z ボタンの状態(BOOL 値)<br/>[16] アナログスティックのX 方向入力値<br/>(解放時0，最大まで左に傾けると-100，同右で100)<br/>[17] アナログスティックのY 方向入力値<br/>(解放時0，最大まで左に傾けると-100，同右で100)<br/>[18] X軸方向の加速度<br/>[19] Y軸方向の加速度<br/>[20] Z軸方向の加速度<br/>[21] バッテリー残量(%) <br/>[22] LEDの状態（BYTE値）<br/><br/>※コンフィギュレーションの"SIU_compti"が"true"の場合、[0]~[21]のデータを送信する。
+WiiClassicC     OutPort     RTC::TimedShortSeq             WiiClassic Controllerから取得したデータを送信する。<br/>尚、[0]から[13]までがWiiリモコン本体の情報、それ以降はWiiClassicControllerの情報となっている。<br/><br/>[0] 十字キー・上ボタンの状態(BOOL 値)<br/>[1] 十字キー・右ボタンの状態(BOOL 値)<br/>[2] 十字キー・下ボタンの状態(BOOL 値)<br/>[3] 十字キー・左ボタンの状態(BOOL 値)<br/>[4] A ボタンの状態(BOOL 値)<br/>[5] B ボタンの状態(BOOL 値)<br/>[6] ＋ボタンの状態(BOOL 値)<br/>[7] Home ボタンの状態(BOOL 値)<br/>[8] －ボタンの状態(BOOL 値)<br/>[9] 1 ボタンの状態(BOOL 値)<br/>[10] 2 ボタンの状態(BOOL 値)<br/>[11] X軸方向の加速度<br/>[12] Y軸方向の加速度<br/>[13] Z軸方向の加速度<br/>[14] A ボタンの状態(BOOL 値)<br/>[15] B ボタンの状態(BOOL 値)<br/>[16] X ボタンの状態(BOOL 値)<br/>[17] Y ボタンの状態(BOOL 値)<br/>[18] －ボタンの状態(BOOL 値)<br/>[19] Home ボタンの状態(BOOL 値)<br/>[20] ＋ボタンの状態(BOOL 値)<br/>[21] 十字キー・上ボタンの状態(BOOL 値)<br/>[22] 十字キー・下ボタンの状態(BOOL 値)<br/>[23] 十字キー・左ボタンの状態(BOOL 値)<br/>[24] 十字キー・右ボタンの状態(BOOL 値)<br/>[25] L ボタンの状態(BOOL 値)<br/>[26] R ボタンの状態(BOOL 値)<br/>[27] ZL ボタンの状態(BOOL 値)<br/>[28] ZR ボタンの状態(BOOL 値)<br/>[29] L ボタンのアナログ入力値<br/>　(最小値0，最大値100，PRO の場合は解放で0，押下で100)<br/>[30] R ボタンのアナログ入力値<br/>　(最小値0，最大値100，PRO の場合は解放で0，押下で100)<br/>[31] 左アナログスティックのX 方向入力値<br/>　(解放時0，最大まで左に傾けると-100，同右で100)<br/>[32] 左アナログスティックのY 方向入力値<br/>　(解放時0，最大まで下に傾けると-100，同上で100)<br/>[33] 右アナログスティックのX 方向入力値(-100～100)<br/>　(解放時0，最大まで左に傾けると-100，同右で100)<br/>[34] 右アナログスティックのY 方向入力値(-100～100)<br/>　(解放時0，最大まで下に傾けると-100，同上で100)<br/>[35] バッテリー残量(%) <br/>[36] LEDの状態（BYTE値）<br/><br/>※コンフィギュレーションの"SIU_compti"が"true"の場合、[0]~[36]のデータを送信する。
+WiiBalanceB     OutPort     RTC::TimedShortSeq             WiiBalanceBoardから取得したデータを送信する。<br/><br/>[0] 電源ボタンの状態(BOOL 値)<br/>[1] X軸の重心座標<br/>[2] Y軸の重心座標<br/>[3] 左上にかかる重量データ<br/>[4] 右上にかかる重量データ<br/>[5] 右下にかかる重量データ<br/>[6] 左下にかかる重量データ<br/>[7] 左上センサの生データ<br/>[8] 右上センサの生データ<br/>[9] 右下センサの生データ<br/>[10] 左下センサの生データ<br/>[11] バッテリー残量(%) <br/>[12] LEDの状態（BYTE値）<br/><br/>※コンフィギュレーションの"SIU_compti"が"true"の場合、[0]~[12]のデータを送信する。
+WiiMotionP      OutPort     RTC::TimedShortSeq             WiiMotionPlusコントローラから取得したデータを送信する。<br/>尚、[0]から[13]までがWiiリモコン本体の情報、それ以降はWiiMotionPlusの情報となっている。<br/><br/>[0] 十字キー・上ボタンの状態(BOOL 値)<br/>[1] 十字キー・右ボタンの状態(BOOL 値)<br/>[2] 十字キー・下ボタンの状態(BOOL 値)<br/>[3] 十字キー・左ボタンの状態(BOOL 値)<br/>[4] A ボタンの状態(BOOL 値)<br/>[5] B ボタンの状態(BOOL 値)<br/>[6] ＋ボタンの状態(BOOL 値)<br/>[7] Home ボタンの状態(BOOL 値)<br/>[8] －ボタンの状態(BOOL 値)<br/>[9] 1 ボタンの状態(BOOL 値)<br/>[10] 2 ボタンの状態(BOOL 値)<br/>[11] X軸方向の加速度<br/>[12] Y軸方向の加速度<br/>[13] Z軸方向の加速度<br/>[14] MotionPlus のyaw の生データ<br/>[15] MotionPlus のpitch の生データ<br/>[16] MotionPlus のroll の生データ<br/>[17] MotionPlus のyaw を速度に変換した値<br/>[18] MotionPlus のpitch を速度に変換した値<br/>[19] MotionPlus のroll を速度に変換した値<br/>[20] バッテリー残量(%) <br/>[21] LEDの状態<br/><br/>※コンフィギュレーションの"SIU_compti"が"true"の場合、[0]~[19]のデータを送信する。
+=============== =========== ============================== =======
+
+Examples
+========
+
+An example configuration file is provided in the
+``${prefix}/components/share/WiimoteRTC/examples/conf/`` directory.
+
+Changelog
+=========
+
+
+
+License
+=======
+
+This software is developed at the National Institute of Advanced
+Industrial Science and Technology. Approval number H23PRO-????. This
+software is licensed under the Lesser General Public License. See
+COPYING.LESSER.
+

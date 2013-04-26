@@ -1,0 +1,226 @@
+// -*- C++ -*-
+/*!
+ * @file  WiimoteRTC.cpp
+ * @brief Controll Component for wiiremote 
+ * @date $Date$
+ *
+ * $Id$
+ */
+
+#include "WiimoteRTC.h"
+
+// Module specification
+// <rtc-template block="module_spec">
+static const char* wiimotertc_spec[] =
+  {
+    "implementation_id", "WiimoteRTC",
+    "type_name",         "WiimoteRTC",
+    "description",       "Controll Component for wiiremote ",
+    "version",           "1.0.0",
+    "vendor",            "AIST",
+    "category",          "Category",
+    "activity_type",     "PERIODIC",
+    "kind",              "DataFlowComponent",
+    "max_instance",      "1",
+    "language",          "C++",
+    "lang_type",         "compile",
+    // Configuration variables
+    "conf.default.debug", "0",
+    "conf.default.SIU_compati", "0",
+    "conf.default.ClassicController", "0",
+    "conf.default.Nunchuk", "0",
+    "conf.default.MotionPlus", "0",
+    "conf.default.BalanceBoard", "0",
+    "conf.default.LED", "",
+    "conf.default.Rumble", "0",
+    // Widget
+    "conf.__widget__.debug", "radio",
+    "conf.__widget__.SIU_compati", "radio",
+    "conf.__widget__.ClassicController", "radio",
+    "conf.__widget__.Nunchuk", "radio",
+    "conf.__widget__.MotionPlus", "radio",
+    "conf.__widget__.BalanceBoard", "radio",
+    "conf.__widget__.LED", "checkbox",
+    "conf.__widget__.Rumble", "radio",
+    // Constraints
+    "conf.__constraints__.debug", "(0,1)",
+    "conf.__constraints__.SIU_compati", "(0,1)",
+    "conf.__constraints__.ClassicController", "(0,1)",
+    "conf.__constraints__.Nunchuk", "(0,1)",
+    "conf.__constraints__.MotionPlus", "(0,1)",
+    "conf.__constraints__.BalanceBoard", "(0,1)",
+    "conf.__constraints__.LED", "(0,1,2,3)",
+    "conf.__constraints__.Rumble", "(0,1)",
+    ""
+  };
+// </rtc-template>
+
+/*!
+ * @brief constructor
+ * @param manager Maneger Object
+ */
+WiimoteRTC::WiimoteRTC(RTC::Manager* manager)
+    // <rtc-template block="initializer">
+  : RTC::DataFlowComponentBase(manager),
+    m_commandIn("command", m_command),
+    m_WiiRemoteOut("WiiRemote", m_WiiRemote),
+    m_WiiNunchukOut("WiiNunchuk", m_WiiNunchuk),
+    m_WiiClassicCOut("WiiClassicC", m_WiiClassicC),
+    m_WiiBalanceBOut("WiiBalanceB", m_WiiBalanceB),
+    m_WiiMotionPOut("WiiMotionP", m_WiiMotionP)
+
+    // </rtc-template>
+{
+}
+
+/*!
+ * @brief destructor
+ */
+WiimoteRTC::~WiimoteRTC()
+{
+}
+
+
+/*!
+ * Configuration’¤Î’½é’´ü’²½’¤ò’¹Ô’¤¤’¡¢PC’¤ÈBluetooth’ÀÜ’Â³’¤·’¤¿wiimote’¥Ç’¥Ð’¥¤
+ * ’¥¹’¤È’ÀÜ’Â³’¤¹’¤ë’¡£
+ */
+RTC::ReturnCode_t WiimoteRTC::onInitialize()
+{
+  // Registration: InPort/OutPort/Service
+  // <rtc-template block="registration">
+  // Set InPort buffers
+  addInPort("command", m_commandIn);
+  
+  // Set OutPort buffer
+  addOutPort("WiiRemote", m_WiiRemoteOut);
+  addOutPort("WiiNunchuk", m_WiiNunchukOut);
+  addOutPort("WiiClassicC", m_WiiClassicCOut);
+  addOutPort("WiiBalanceB", m_WiiBalanceBOut);
+  addOutPort("WiiMotionP", m_WiiMotionPOut);
+  
+  // Set service provider to Ports
+  
+  // Set service consumers to Ports
+  
+  // Set CORBA Service Ports
+  
+  // </rtc-template>
+
+  // <rtc-template block="bind_config">
+  // Bind variables and configuration variable
+  bindParameter("debug", m_debug, "0");
+  bindParameter("SIU_compati", m_SIU_compati, "0");
+  bindParameter("ClassicController", m_ClassicController, "0");
+  bindParameter("Nunchuk", m_Nunchuk, "0");
+  bindParameter("MotionPlus", m_MotionPlus, "0");
+  bindParameter("BalanceBoard", m_BalanceBoard, "0");
+  bindParameter("LED", m_LED, "");
+  bindParameter("Rumble", m_Rumble, "0");
+  // </rtc-template>
+  
+  return RTC::RTC_OK;
+}
+
+/*!
+ * wiimote’¥Ç’¥Ð’¥¤’¥¹’¤Î’ÀÜ’Â³’¤ò’ÀÚ’ÃÇ’¤¹’¤ë’¡£
+ */
+
+RTC::ReturnCode_t WiimoteRTC::onFinalize()
+{
+  return RTC::RTC_OK;
+}
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onStartup(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onShutdown(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onActivated(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onDeactivated(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*!
+ * ’¥¤’¥ó’¥Ý’¡¼’¥È’¤ËTimedOctet’·¿’¥Ç’¡¼’¥¿’¤¬’¤¢’¤ë’¾ì’¹ç’¡¢wiimote’¥Ç’¥Ð’¥¤’¥¹’¤ÎLED’¤È
+ * ’¿¶’Æ°’¤ò’¥³’¥ó’¥È’¥í’¡¼’¥ë’¤¹’¤ë’¡£
+ * ’¡ÊLED’¤È’¿¶’Æ°’¤Î’¥³’¥ó’¥È’¥í’¡¼’¥ë’¤Ï’¥³’¥ó’¥Õ’¥£’¥®’¥å’¥ì’¡¼’¥·’¥ç’¥ó’¤«’¤é’Áà’ºî’¤â’²Ä’Ç½’¡Ë
+ *
+ * ’³Æ’¥Ç’¥Ð’¥¤’¥¹’¤Î’¥¢’¥¦’¥È’¥Ý’¡¼’¥È’¤«’¤é’¥³’¥ó’¥Õ’¥£’¥®’¥å’¥ì’¡¼’¥·’¥ç’¥ó’¤Ç’»Ø’Äê’¤·’ÀÜ’Â³’¤·’¤¿
+ * wiimote’¥Ç’¥Ð’¥¤’¥¹’¤Î’¥Ç’¡¼’¥¿’¤ò’¼è’ÆÀ’¡¦’ÊÑ’´¹’¤·’¡¢TimedShortSeq’·¿’¤Ç’Á÷’¿®’¤¹’¤ë’¡£
+ */
+
+RTC::ReturnCode_t WiimoteRTC::onExecute(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onAborting(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onError(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onReset(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onStateUpdate(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+/*
+RTC::ReturnCode_t WiimoteRTC::onRateChanged(RTC::UniqueId ec_id)
+{
+  return RTC::RTC_OK;
+}
+*/
+
+
+
+extern "C"
+{
+ 
+  void WiimoteRTCInit(RTC::Manager* manager)
+  {
+    coil::Properties profile(wiimotertc_spec);
+    manager->registerFactory(profile,
+                             RTC::Create<WiimoteRTC>,
+                             RTC::Delete<WiimoteRTC>);
+  }
+  
+};
+
+
